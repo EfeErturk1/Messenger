@@ -1,0 +1,18 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\com",
+    "\\src\\main\\java\\com\\example",
+    "\\src\\main\\java\\com\\example\\cs411_proj2",
+    "\\src\\main\\java\\com\\example\\cs411_proj2\\controller",
+    "\\src\\main\\java\\com\\example\\cs411_proj2\\dto",
+    "\\src\\main\\java\\com\\example\\cs411_proj2\\entity",
+    "\\src\\main\\java\\com\\example\\cs411_proj2\\repository",
+    "\\src\\main\\java\\com\\example\\cs411_proj2\\service"
+  ],
+  "SelectedNode": "\\src\\main\\java\\com\\example\\cs411_proj2\\Cs411Proj2Application.java",
+  "PreviewInSolutionExplorer": false
+}
