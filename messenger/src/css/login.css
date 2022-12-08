@@ -1,0 +1,47 @@
+.form-properties {
+    padding-top: 20px;
+}
+
+.form-inner {
+    margin-top: 100px;
+}
+
+.form-group {
+    margin-top: 20px;
+}
+
+.loginbtn {
+    margin-left: 7%;
+    margin-top: 10px;
+    border-radius: 5px;
+    border-color: #d0d0d0;
+}
+
+.registerbtn {
+    margin-left: 1%;
+    text-decoration: none;
+    font-size: 15px;
+    color: rgb(0, 90, 81);
+}
+
+.registerbtn:hover {
+    color: #545454;
+}
+
+#phoneno {
+    margin-left: 10px;
+}
+
+#password {
+    margin-left: 14px;
+}
+
+#name {
+    margin-left: 12px;
+}
+
+.formbtn {
+    margin-top: 20px;
+}
+
+
