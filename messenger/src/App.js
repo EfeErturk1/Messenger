@@ -1,4 +1,5 @@
-import logo from './logo.svg';
+import React, {useState} from "react";
+import Login from './components/Login';
 import './App.css';
 import {
   useQuery,
@@ -9,11 +10,11 @@ import {
 } from 'react-query'
 import axios from 'axios'
 
-function App() {
-  const queryClient = useQueryClient()
- 
+function App() { 
+  const [user, setUser] = useState({username: "", phone_no: ""});
+
      const query = useQuery('users', async()=>{
-       const {data} = await axios.get("http://localhost:3001/posts")
+       const {data} = await axios.get("http://localhost:8081/users")
        return data
      },{
        refetchInterval:1000
@@ -25,31 +26,13 @@ function App() {
        title:newTodo.title,
        author:newTodo.author
      })
-         queryClient.prefetchQuery('todos', async()=>{
-           const {data} = await axios.get("http://localhost:3001/posts")
-       return data
-         })
    })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
       <div>
         {query.isLoading && <h1>Loading....</h1>}
         {query.data && <div>
-          {query.data.map((p,i)=>(<li>{p.title} = {p.author}</li>))}
+          {query.data.map((p,i)=>(<li>{p.name} = {p.phone_no}</li>))}
 
         </div>}
         <button
@@ -57,6 +40,9 @@ function App() {
           mutation.mutate({id:query.data.length+1,title:"bayu",author:"write test"})
         }}>add new data</button>
       </div>
+      {user.phone_no == "" && <div>
+          <Login />
+        </div>}
     </div>
   );
 }

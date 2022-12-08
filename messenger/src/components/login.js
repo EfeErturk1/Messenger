@@ -1,14 +1,27 @@
 import React, {useState} from "react";
-//import { Link, Navigate } from "react-router-dom";
 import "../css/login.css";
+import {
+    useQuery,
+    useMutation,
+    useQueryClient,
+    QueryClient,
+    QueryClientProvider,
+  } from 'react-query'
+import axios from 'axios'
 
-function login ({setName, getName}) {
+function Login ({setUser, getName}) {
 
     const [details, setDetails] = useState({username: "", password: ""});
     const [errmsg, setErrMsg] = useState({message : ""});
 
-    const handleLogin = e => {
+    const handleLogin = async e => {
         e.preventDefault();
+
+        
+        const {data} = await axios.post("http://localhost:8081/users/login/1", "123" , { headers: {"Content-Type": "application/json"}});
+        
+        console.log(data);
+        setUser({username: data.username , phone_no: data.phone_no});
 
         /*const response = UserService.logIn(details);
 
@@ -26,7 +39,7 @@ function login ({setName, getName}) {
 
     return (
         <form className="form-properties" onSubmit={handleLogin}>
-            { getName() !== "" ? (<Navigate push to="/"/>) : null }
+            
             <div className="form-inner">
                 <div className="form-group">
                     <label >Name: </label>
@@ -37,7 +50,7 @@ function login ({setName, getName}) {
                     <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
                 </div>
                 <div className="formbtn"><button className="loginbtn">Log in</button>
-                    <Link className="registerbtn" to="/register">Register</Link>
+                
                 </div>
             </div>
             <div>{errmsg.message}</div>
@@ -46,4 +59,4 @@ function login ({setName, getName}) {
     
 }
  
-export default login;
+export default Login;
