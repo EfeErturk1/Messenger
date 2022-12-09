@@ -59,7 +59,7 @@ public class UserService {
     public List<Message> getRecievedMessages(String phone_no){
         User user = repo.findById(phone_no).orElse(null);
         if (user != null) {
-            return user.getRecieved_messages();
+            return user.getReceived_messages();
         }
         return null;
     }
