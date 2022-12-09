@@ -1,32 +1,31 @@
 import React, {useState} from "react";
-import { Link , Navigate} from "react-router-dom";
 import "../css/login.css";
+import axios from 'axios'
 
-function Register (/*{setName,getName}*/) {
+function Register ({setPage}) {
 
-    const [details, setDetails] = useState({phoneno: "", password: ""});
+    const [details, setDetails] = useState({phoneno: "", username: "", password: ""});
     const [errmsg, setErrMsg] = useState({message : ""});
-    const [success, setSuccess] = useState({state: false});
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
 
-        const response = UserService.register(details);
-        response.then(value => {
-            if(value !== true){
-                setErrMsg({message : value.message});
-            }
-            else{
-                setSuccess({state: true});
-            }
-        });
+        try{
+            const {data} = await axios.post("http://localhost:8081/users", 
+                { 'phone_no': details.phoneno , 'name': details.username , 'password': details.password },
+                { headers: {"Content-Type": "application/json"}});
+            setPage({type:"login"});
+        }catch{
+            setErrMsg({message : "Invalid attempt"});
+        }
+        
     }
 
     return (
         <div className="form-container">
-        <form className="form-properties" onSubmit={handleLogin}>
+        <form className="form-properties" onSubmit={handleRegister}>
             <label >Phone Number: </label>
-            <input type="text" name="phoneno" id="phoneno" onChange={e => setDetails({...details, username: e.target.value})} value={details.username}/>
+            <input type="text" name="phoneno" id="phoneno" onChange={e => setDetails({...details, phoneno: e.target.value})} value={details.phoneno}/>
             <label >Name: </label>
             <input type="text" name="name" id="name" onChange={e => setDetails({...details, username: e.target.value})} value={details.username}/>
             <label>Password: </label>
@@ -34,11 +33,10 @@ function Register (/*{setName,getName}*/) {
             <button class="button-36" role="button">Register</button>
             <div>{errmsg.message}</div>
         </form>
-        <button className="reg-link">Already have an account? Login here.</button>
+        <button className="reg-link" onClick={() => setPage({type:"login"})}>Already have an account? Login here.</button>
         </div>
-        { success.state ? (<Navigate push to="/login"/>) : null }
     );
     
 }
  
-export default register;
+export default Register;

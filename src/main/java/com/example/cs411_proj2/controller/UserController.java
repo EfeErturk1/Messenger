@@ -32,6 +32,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> add(@RequestBody User user){
+        System.out.println("here");
         return ResponseEntity.ok(service.register(user.getPhone_no(), user.getName(), user.getPassword()));
     }
 

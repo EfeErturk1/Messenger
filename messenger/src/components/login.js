@@ -9,7 +9,7 @@ import {
   } from 'react-query'
 import axios from 'axios'
 
-function Login ({setUser}) {
+function Login ({setUser, setPage}) {
 
     const [details, setDetails] = useState({id: "", password: ""});
     const [errmsg, setErrMsg] = useState({message : ""});
@@ -17,16 +17,16 @@ function Login ({setUser}) {
     const handleLogin = async e => {
         e.preventDefault();
 
-        
-        const {data} = await axios.post("http://localhost:8081/users/login/" + details.id, details.password ,
-            { headers: {"Content-Type": "application/json"}});
-        
-        setUser({username: data.username , phone_no: data.phone_no});
+        try{
+            const {data} = await axios.post("http://localhost:8081/users/login/" + details.id, details.password ,
+                { headers: {"Content-Type": "application/json"}});
+            setUser({username: data.username , phone_no: data.phone_no});
+        }catch{
+            setErrMsg({message : "Wrong username or password"});
+        }
 
-        /*const response = UserService.logIn(details);
-
+        /*
         response.then(value => {
-            console.log(value);
             if(value !== true){
                 setErrMsg({message : value.message});
             }
@@ -47,7 +47,7 @@ function Login ({setUser}) {
             <button class="button-36" role="button">Log in</button>
             <div>{errmsg.message}</div>
         </form>
-        <button className="reg-link">Don't have an account? Register here.</button>
+        <button className="reg-link" onClick={() => setPage({type:"register"})}>Don't have an account? Register here.</button>
         </div>
     );
     

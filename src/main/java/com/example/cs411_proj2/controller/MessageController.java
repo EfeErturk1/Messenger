@@ -42,8 +42,6 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<?> send(@RequestBody MessageDTO msg){
-        System.out.println("Here");
-        System.out.println("Sender: " + msg.getSender() + " Content: " + msg.getContent());
         User sender = userservice.getUser(msg.getSender());
         User receiver = userservice.getUser(msg.getReceiver());
         if (sender == null || receiver == null) {
