@@ -38,23 +38,17 @@ function Login ({setUser}) {
     }
 
     return (
+        <div className="form-container">
         <form className="form-properties" onSubmit={handleLogin}>
-            
-            <div className="form-inner">
-                <div className="form-group">
-                    <label >Name: </label>
-                    <input type="text" name="name" id="name" onChange={e => setDetails({...details, id: e.target.value})} value={details.id}/>
-                </div>
-                <div className="form-group">
-                    <label>Password: </label>
-                    <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
-                </div>
-                <div className="formbtn"><button className="loginbtn">Log in</button>
-                
-                </div>
-            </div>
+            <label >Phone Number: </label>
+            <input type="text" name="phoneno" id="phoneno" onChange={e => setDetails({...details, id: e.target.value})} value={details.id}/>
+            <label>Password: </label>
+            <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>                
+            <button class="button-36" role="button">Log in</button>
             <div>{errmsg.message}</div>
         </form>
+        <button className="reg-link">Don't have an account? Register here.</button>
+        </div>
     );
     
 }
