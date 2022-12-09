@@ -38,8 +38,8 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<?> send(@RequestBody MessageDTO msg){
-        User sender = userservice.getUser(msg.getSender());
-        User receiver = userservice.getUser(msg.getReceiver());
+        User sender = userservice.getUser(msg.getSender().getPhone_no());
+        User receiver = userservice.getUser(msg.getReceiver().getPhone_no());
         if (sender == null || receiver == null) {
             return ResponseEntity.badRequest().body("Sender or receiver does not exist");
         }

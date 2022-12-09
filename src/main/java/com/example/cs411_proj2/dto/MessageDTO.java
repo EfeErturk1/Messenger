@@ -1,20 +1,18 @@
 package com.example.cs411_proj2.dto;
 
+import com.example.cs411_proj2.entity.Groupchat;
 import com.example.cs411_proj2.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class MessageDTO {
-
     @NonNull
-    private String sender;
-    @NonNull
-    private String receiver;
+    private User sender;
+    private User receiver;
+    private Groupchat groupchat;
     private String content;
     private String time;
 }
