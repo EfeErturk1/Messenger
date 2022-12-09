@@ -10,8 +10,8 @@ import lombok.*;
 @Setter
 public class MessageDTO {
     @NonNull
-    private User sender;
-    private User receiver;
+    private String sender;
+    private String receiver;
     private Groupchat groupchat;
     private String content;
     private String time;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -45,6 +46,7 @@ public class UserController {
         return ResponseEntity.ok("User deleted");
     }
 
+    @CrossOrigin
     @PostMapping("/login/{id}")
     public ResponseEntity<?> login(@PathVariable String id, @RequestBody String password){
         User user = service.login(id, password);

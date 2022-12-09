@@ -71,8 +71,8 @@ public class GroupService {
 
     private Message mapRequestToMessage(MessageDTO messageRequest) {
         return Message.builder()
-                .sender(messageRequest.getSender())
-                .receiver(messageRequest.getReceiver())
+                .sender(userService.getUser(messageRequest.getSender()))
+                .receiver(userService.getUser(messageRequest.getReceiver()))
                 .groupchat(messageRequest.getGroupchat())
                 .content(messageRequest.getContent())
                 .time(messageRequest.getTime())

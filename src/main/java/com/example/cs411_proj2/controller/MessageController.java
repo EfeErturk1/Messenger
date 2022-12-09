@@ -5,6 +5,7 @@ import com.example.cs411_proj2.entity.Message;
 import com.example.cs411_proj2.entity.User;
 import com.example.cs411_proj2.service.MessageService;
 import com.example.cs411_proj2.service.UserService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
@@ -38,8 +40,10 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<?> send(@RequestBody MessageDTO msg){
-        User sender = userservice.getUser(msg.getSender().getPhone_no());
-        User receiver = userservice.getUser(msg.getReceiver().getPhone_no());
+        System.out.println("Here");
+        System.out.println("Sender: " + msg.getSender() + " Content: " + msg.getContent());
+        User sender = userservice.getUser(msg.getSender());
+        User receiver = userservice.getUser(msg.getReceiver());
         if (sender == null || receiver == null) {
             return ResponseEntity.badRequest().body("Sender or receiver does not exist");
         }

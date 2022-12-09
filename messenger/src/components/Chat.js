@@ -16,6 +16,12 @@ function Chat ({setUser,user}) {
 
     const handleSend = async e => {
         e.preventDefault();
+
+        const {data} = await axios.post("http://localhost:8081/messages", 
+            { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 'time': Date().toLocaleString() },
+            { headers: {"Content-Type": "application/json"} });
+        
+        console.log(data)
     }
 
     const query1 = useQuery('users', async()=>{
@@ -27,10 +33,10 @@ function Chat ({setUser,user}) {
 
       
       const query2 = useQuery('messages', async()=>{
-        if(reciever.reciever_id != ""){
-            //const data1 = await axios.get("http://localhost:8081/1/to/1");
-            const {data} = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
-            console.log(data)
+        if(reciever.reciever_id !== ""){
+            //const data1 = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
+            const {data} = await axios.get("http://localhost:8081/messages/from/" + reciever.reciever_id + "/to/" + user.phone_no);
+             
             return data
         }
       },{
@@ -46,7 +52,10 @@ function Chat ({setUser,user}) {
             <div className="rightDiv">
                 <div className="chatWindow">
                 {query2.data && <div>
-                                {query2.data.map((p,i)=>(<li key={p.time}>{p.content}</li>))} </div>}
+                                {query2.data.map((p,i)=>(p.sender === user.phone_no ?
+                                    <li className="rightMessage" style="background-color : blue">{p.content}</li> : 
+                                    <li className="leftMessage" >{p.content}</li>
+                                ))} </div>}
                 </div>
                 <form className="form-properties" onSubmit={handleSend}>
                 
