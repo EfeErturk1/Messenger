@@ -34,9 +34,9 @@ function Chat ({setUser,user}) {
       
       const query2 = useQuery('messages', async()=>{
         if(reciever.reciever_id !== ""){
-            //const data1 = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
-            const {data} = await axios.get("http://localhost:8081/messages/from/" + reciever.reciever_id + "/to/" + user.phone_no);
-             
+            //const data1 = await axios.get("http://localhost:8081/messages/from/" + reciever.reciever_id + "/to/" + user.phone_no);
+            const {data} = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
+            console.log(data);
             return data
         }
       },{
@@ -52,8 +52,8 @@ function Chat ({setUser,user}) {
             <div className="rightDiv">
                 <div className="chatWindow">
                 {query2.data && <div>
-                                {query2.data.map((p,i)=>(p.sender === user.phone_no ?
-                                    <li className="rightMessage" style="background-color : blue">{p.content}</li> : 
+                                {query2.data.map((p,i)=>(p.sender.phone_no === user.phone_no ?
+                                    <li className="rightMessage" style={{backgroundColor : "blue"}}>{p.content}</li> : 
                                     <li className="leftMessage" >{p.content}</li>
                                 ))} </div>}
                 </div>
