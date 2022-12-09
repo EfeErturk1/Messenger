@@ -77,7 +77,10 @@ public class MessageController {
         List<Message> messages = userservice.getSentMessages(sender_id);
         List<Message> messages2 = userservice.getRecievedMessages(receiver_id);
         List<Message> common_messages = messages.stream().filter(messages2::contains).collect(Collectors.toList());
-
+        List<Message> messages3 = userservice.getSentMessages(receiver_id);
+        List<Message> messages4 = userservice.getRecievedMessages(sender_id);
+        List<Message> common_messages2 = messages3.stream().filter(messages4::contains).collect(Collectors.toList());
+        common_messages.addAll(common_messages2);
         return ResponseEntity.ok(common_messages);
     }
 }
