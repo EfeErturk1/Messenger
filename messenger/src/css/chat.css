@@ -1,10 +1,7 @@
-body {
+.chatBody {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    margin-left: 40px;
-    margin-right: 40px;
     min-height: 100vh;
     background: linear-gradient(#c779d0 0%, #c779d0 100px, #e6e6e6 100px, #e6e6e6 100%);
     
@@ -21,24 +18,25 @@ body {
 }
 
 .container {
-    position: relative;
     width: 1396px;
     max-width: 100%;
     height: calc(100vh - 40px);
-    background: linear-gradient(#feac5e, #c779d0, #4bc0c8);
-    opacity: 0.4;
+    opacity: 1;
     box-shadow: 0 1px 1px 0 rgba(0,0,0, 0.06), 0 2px 5px 0 rgba(0,0,0, 0.06);
 }
 
 .container .leftDiv {
     position: relative;
+    float: left;
     flex: 30%;
     background: #d6d6d6;
     border-right: 1px solid rgba (0, 0, 0, 0.06);
 }
 
+
 .container .rightDiv {
     position: relative;
+    float: right;
     flex: 70%;
     background: #f3efeb;
 
@@ -56,7 +54,7 @@ body {
 
 .header {
     position: relative;
-    width 100%;
+    width: 100%;
     height: 60px;
     background:#e6e6e6;
     justify-content: space-between;
@@ -90,32 +88,45 @@ body {
     font-weight: 600px;
     color: rgb(31, 31, 31);
 }
-
+.chatName div li {
+    list-style: none;
+}
+.chatName div li button{
+    border: none;
+    border-bottom: solid 1px grey;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+.chatName div li button:hover{
+    cursor: pointer;
+    background-color: grey;
+}
 .chatWindow {
     position: relative;
     width: 100%;
     height: calc(100% - 120px);
-    padding: 50px;
+    padding: 5px;
     overflow-y: auto;
 }
 
 .messages {
     position: relative;
-    display: flex;
     width: 100%;
-    margin: 5px; 0;
-    max-width: 65%;
-    border-radius: 12px;
+    list-style: none;
 }
 
-.messages .received {
-    justify-content: flex-start;
+
+.messages .recieved {
+    text-align: left;
     background: rgb(204, 249, 204);
+    padding-left: 5px;
 }
 
 .messages .sent {
-    justify-content: flex-end;
-    background: rgb(252, 247, 242);
+    padding-right: 5px;
+    text-align: right;
+    background: rgb(249, 238, 228);
 }
 
 .form-inner {
@@ -123,18 +134,23 @@ body {
     width: 100%;
     height: 60px;
     background: #f0f0f0;
-    padding: 15px;
+    padding: 10px;
     justify-content: space-between;
     align-items: center;
 }
 
 .form-inner input {
     position: relative;
+    float: left;
     width: 90%;
     margin: 0 20px;
-    padding: 10px; 20px;
+    padding: 10px 20px;
     border: none;
     outline: none;
     border-radius: 30px;
     font-size: 1em;
+}
+
+.sendBtn {
+    float: right;
 }

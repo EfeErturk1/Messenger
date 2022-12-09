@@ -44,7 +44,7 @@ function Login ({setUser, setPage}) {
             <input type="text" name="phoneno" id="phoneno" onChange={e => setDetails({...details, id: e.target.value})} value={details.id}/>
             <label>Password: </label>
             <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>                
-            <button class="button-36" role="button">Log in</button>
+            <button className="button-36" role="button">Log in</button>
             <div>{errmsg.message}</div>
         </form>
         <button className="reg-link" onClick={() => setPage({type:"register"})}>Don't have an account? Register here.</button>

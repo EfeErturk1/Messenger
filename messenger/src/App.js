@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      {user.phone_no == "" && <div>
+      {user.phone_no == "" && <div className="Login">
         {page.type === "login" ?
           <Login setUser={setUser} setPage={setPage}/> :
           <Register setPage={setPage}/>
