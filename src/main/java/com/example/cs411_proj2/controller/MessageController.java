@@ -9,10 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -72,17 +74,11 @@ public class MessageController {
         return ResponseEntity.ok(userservice.getRecievedMessages(id));
     }
 
-    @GetMapping(value = "/from/{sender_id}/to/{reciever_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Message>> getBySenderAndReciever(@PathVariable String sender_id, @PathVariable String reciever_id){
+    @GetMapping(value = "/from/{sender_id}/to/{receiver_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Message>> getBySenderAndReceiver(@PathVariable String sender_id, @PathVariable String receiver_id){
         List<Message> messages = userservice.getSentMessages(sender_id);
-        List<Message> messages2 = userservice.getRecievedMessages(reciever_id);
-        List<Message> common_messages = new ArrayList<>(messages);
-
-        for (Message m : messages) {
-            if (messages2.contains(m)) {
-                common_messages.add(m);
-            }
-        }
+        List<Message> messages2 = userservice.getRecievedMessages(receiver_id);
+        List<Message> common_messages = messages.stream().filter(messages2::contains).collect(Collectors.toList());
 
         return ResponseEntity.ok(common_messages);
     }
