@@ -9,18 +9,18 @@ import {
   } from 'react-query'
 import axios from 'axios'
 
-function Login ({setUser, getName}) {
+function Login ({setUser}) {
 
-    const [details, setDetails] = useState({username: "", password: ""});
+    const [details, setDetails] = useState({id: "", password: ""});
     const [errmsg, setErrMsg] = useState({message : ""});
 
     const handleLogin = async e => {
         e.preventDefault();
 
         
-        const {data} = await axios.post("http://localhost:8081/users/login/1", "123" , { headers: {"Content-Type": "application/json"}});
+        const {data} = await axios.post("http://localhost:8081/users/login/" + details.id, details.password ,
+            { headers: {"Content-Type": "application/json"}});
         
-        console.log(data);
         setUser({username: data.username , phone_no: data.phone_no});
 
         /*const response = UserService.logIn(details);
@@ -43,7 +43,7 @@ function Login ({setUser, getName}) {
             <div className="form-inner">
                 <div className="form-group">
                     <label >Name: </label>
-                    <input type="text" name="name" id="name" onChange={e => setDetails({...details, username: e.target.value})} value={details.username}/>
+                    <input type="text" name="name" id="name" onChange={e => setDetails({...details, id: e.target.value})} value={details.id}/>
                 </div>
                 <div className="form-group">
                     <label>Password: </label>
