@@ -74,7 +74,7 @@ function Chat ({setUser,user}) {
                     <div className="form-inner">
                         <div className="form-group">
                             <input type="text" placeholder="Type your message..." name="name" id="name" onChange={e => setMessage({...message, content: e.target.value})} value={message.content}/>
-                            <button className="sendbtn">Send</button>
+                            <button className="sendBtn">Send</button>
                         </div>
                     </div>
                 </form>
