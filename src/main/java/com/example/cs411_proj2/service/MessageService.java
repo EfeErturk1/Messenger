@@ -15,9 +15,9 @@ public class MessageService {
         this.repo = repo;
     }
 
-    public Message sendMessage(User sender, User receiver, String content) {
+    public Message sendMessage(User sender, User receiver, String content, String time) {
 
-        return repo.save(new Message(sender, receiver, content));
+        return repo.save(new Message(sender, receiver, content, time));
     }
 
     public Message getMessage(int message_id) {

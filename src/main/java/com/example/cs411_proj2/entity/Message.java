@@ -28,17 +28,19 @@ public class Message {
     @JoinColumn(name = "groups_id")
     private Groupchat groupchat;
 
-    public Message(User sender, User receiver, String content) {
+    public Message(User sender, User receiver, String content, String time) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
+        this.time = time;
     }
 
-    public Message(User sender, User receiver, String content, Groupchat groupchat) {
+    public Message(User sender, User receiver, String content, Groupchat groupchat, String time) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
         this.groupchat = groupchat;
+        this.time = time;
     }
 
 }

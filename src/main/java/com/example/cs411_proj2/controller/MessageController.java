@@ -48,7 +48,7 @@ public class MessageController {
             return ResponseEntity.badRequest().body("Sender or receiver does not exist");
         }
 
-        return ResponseEntity.ok(msgservice.sendMessage(sender, receiver, msg.getContent()));
+        return ResponseEntity.ok(msgservice.sendMessage(sender, receiver, msg.getContent(), msg.getTime()));
     }
 
     @PutMapping("/{id}")
