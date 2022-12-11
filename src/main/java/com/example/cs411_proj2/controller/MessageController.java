@@ -100,7 +100,9 @@ public class MessageController {
         all_messages.sort(Comparator.comparing(Message::getMessage_id));
         List<User> contacts = new ArrayList<>();
         User user = userservice.getUser(id);
-        for (Message msg : all_messages) {
+
+        for (int i = all_messages.size() - 1; i >= 0; i--) {
+            Message msg = all_messages.get(i);
             if(msg.getSender().equals(user)){
                 // if it is not in the list, add it
                 if(!contacts.contains(msg.getReceiver())){
