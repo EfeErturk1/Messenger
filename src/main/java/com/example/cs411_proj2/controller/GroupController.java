@@ -67,7 +67,7 @@ public class GroupController {
     }
 
     @GetMapping(value = "/messages/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Message>> getGroupsById(@PathVariable Integer id){
+    public ResponseEntity<List<Message>> getGroupMessagesById(@PathVariable Integer id){
         return ResponseEntity.ok(groupService.getGroupById(id).getMessages());
     }
 
