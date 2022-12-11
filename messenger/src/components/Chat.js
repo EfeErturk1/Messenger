@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "../css/login.css";
 import "../css/chat.css";
 import logo from '../logo/logo.png';
 import {
@@ -15,18 +14,20 @@ function Chat ({setUser,user}) {
 
     const [reciever, setReciever] = useState({reciever_id: "", reciever_username: ""});
     const [message, setMessage] = useState({sender_id: "", reciever_id: "", content: "", time: ""});
+    const [newReciever, setNewReciever] = useState({id: ""});
 
     const handleSend = async e => {
         e.preventDefault();
 
-        var now = new Date();
-        const {data} = await axios.post("http://localhost:8081/messages", 
-            { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 
-            'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
-            { headers: {"Content-Type": "application/json"} });
-        
-        setMessage({...message, content:""});
-        
+        if( reciever.reciever_id !== ""){
+            var now = new Date();
+            const {data} = await axios.post("http://localhost:8081/messages", 
+                { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 
+                'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
+                { headers: {"Content-Type": "application/json"} });
+            
+            setMessage({...message, content:""});
+        }
     }
 
     const handleDelete = async (e, id) => {
@@ -36,8 +37,18 @@ function Chat ({setUser,user}) {
         
     }
 
+    const handleNewReciever = async e => {
+        e.preventDefault();
+
+        const {data} = await axios.get("http://localhost:8081/users/" + newReciever.id);
+        
+        if(data !== ""){
+            setReciever({reciever_id: data.phone_no, reciever_username: data.name});
+        }
+    }
+
     const query1 = useQuery('users', async()=>{
-        const {data} = await axios.get("http://localhost:8081/users")
+        const {data} = await axios.get("http://localhost:8081/messages/contacts/"+user.phone_no)
         return data
       },{
         refetchInterval:1000
@@ -46,7 +57,6 @@ function Chat ({setUser,user}) {
       
       const query2 = useQuery('messages', async()=>{
         if(reciever.reciever_id !== ""){
-            //const data1 = await axios.get("http://localhost:8081/messages/from/" + reciever.reciever_id + "/to/" + user.phone_no);
             const {data} = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
             
             return data
@@ -66,6 +76,11 @@ function Chat ({setUser,user}) {
                 <div className="leftDiv">
                     <div className="header">Chats</div>
                         <div className="chatList">
+
+                            <form className="newChatForm" onSubmit={handleNewReciever}>
+                                <input type="text" placeholder="New chat" name="newChat" id="newChat" onChange={e => setNewReciever({id: e.target.value})}/>
+                            </form>
+
                             <div className="chat">
                                 <div className="chatName">
                                     {query1.data && <div>
