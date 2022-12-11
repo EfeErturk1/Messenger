@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "../css/login.css";
+import logo from '../logo/logo.png';
 import {
     useQuery,
     useMutation,
@@ -39,15 +40,16 @@ function Login ({setUser, setPage}) {
 
     return (
         <div className="form-container">
-        <form className="form-properties" onSubmit={handleLogin}>
-            <label >Phone Number: </label>
-            <input type="text" name="phoneno" id="phoneno" onChange={e => setDetails({...details, id: e.target.value})} value={details.id}/>
-            <label>Password: </label>
-            <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>                
-            <button className="button-36" role="button">Log in</button>
-            <div>{errmsg.message}</div>
-        </form>
-        <button className="reg-link" onClick={() => setPage({type:"register"})}>Don't have an account? Register here.</button>
+            <img className="logo" src={logo} alt="Chatr"/>
+            <form className="form-properties" onSubmit={handleLogin}>
+                <label >Phone Number: </label>
+                <input type="text" name="phoneno" id="phoneno" onChange={e => setDetails({...details, id: e.target.value})} value={details.id}/>
+                <label>Password: </label>
+                <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>                
+                <button className="button-36" role="button">Log in</button>
+                <div>{errmsg.message}</div>
+            </form>
+            <button className="reg-link" onClick={() => setPage({type:"register"})}>Don't have an account? Register here.</button>
         </div>
     );
     

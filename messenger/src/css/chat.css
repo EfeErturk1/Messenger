@@ -1,11 +1,16 @@
 .chatBody {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(#c779d0 0%, #c779d0 100px, #e6e6e6 100px, #e6e6e6 100%);
+    background: linear-gradient(#c779d0 0%, #c779d0 100px, #c779d0 100px, #e6e6e6 100%);
     
-    
+}
+
+.logo{
+    height: 90px;
+    margin-top: 10px;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
@@ -21,7 +26,6 @@
     width: 1396px;
     max-width: 100%;
     height: calc(100vh - 40px);
-    opacity: 1;
     box-shadow: 0 1px 1px 0 rgba(0,0,0, 0.06), 0 2px 5px 0 rgba(0,0,0, 0.06);
 }
 
@@ -66,7 +70,7 @@
 
 .chatList {
     position: relative;
-    height: calc(100% - 60px);
+    height: calc(100% - 40px);
     overflow-y: auto;
     background: #c3b5c5;
 }

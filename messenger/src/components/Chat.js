@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "../css/login.css";
 import "../css/chat.css";
+import logo from '../logo/logo.png';
 import {
     useQuery,
     useMutation,
@@ -46,6 +47,9 @@ function Chat ({setUser,user}) {
 
     return (
         <div className="chatBody">
+            <div className="headerDiv">
+                <img className="logo" src={logo} alt="Chatr"/>
+            </div>
         <div className="container">
             <div className="leftDiv">
                 <div className="header">Chats</div>
