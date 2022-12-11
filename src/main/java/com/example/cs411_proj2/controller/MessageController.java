@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,6 +82,9 @@ public class MessageController {
         List<Message> messages4 = userservice.getRecievedMessages(sender_id);
         List<Message> common_messages2 = messages3.stream().filter(messages4::contains).collect(Collectors.toList());
         common_messages.addAll(common_messages2);
+
+        common_messages.sort(Comparator.comparing(Message::getMessage_id));
+
         return ResponseEntity.ok(common_messages);
     }
 }
