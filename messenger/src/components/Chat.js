@@ -19,8 +19,10 @@ function Chat ({setUser,user}) {
     const handleSend = async e => {
         e.preventDefault();
 
+        var now = new Date();
         const {data} = await axios.post("http://localhost:8081/messages", 
-            { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 'time': Date().toLocaleString() },
+            { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 
+            'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
             { headers: {"Content-Type": "application/json"} });
         
         console.log(data)
@@ -69,8 +71,8 @@ function Chat ({setUser,user}) {
                 <div className="chatWindow">
                 {query2.data && <div className="messages">
                                 {query2.data.map((p,i)=>(p.sender.phone_no === user.phone_no ?
-                                    <li className="sent">{p.content}</li> : 
-                                    <li className="recieved" >{p.content}</li>
+                                    <li className="sent" key={p.message_id}>{p.content} <div className="mtime">{p.time}</div></li> : 
+                                    <li className="recieved" key={p.message_id}>{p.content} <div className="mtime">{p.time}</div></li>
                                 ))} </div>}
                 </div>
                 <form className="form-properties" onSubmit={handleSend}>

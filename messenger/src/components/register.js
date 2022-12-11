@@ -32,7 +32,7 @@ function Register ({setPage}) {
                 <input type="text" name="name" id="name" onChange={e => setDetails({...details, username: e.target.value})} value={details.username}/>
                 <label>Password: </label>
                 <input type="password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>                
-                <button class="button-36" role="button">Register</button>
+                <button className="button-36" role="button">Register</button>
                 <div>{errmsg.message}</div>
             </form>
             <button className="reg-link" onClick={() => setPage({type:"login"})}>Already have an account? Login here.</button>

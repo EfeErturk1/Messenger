@@ -26,7 +26,7 @@
 .container {
     width: 1396px;
     max-width: 100%;
-    height: calc(100vh - 40px);
+    height: 600px;
     box-shadow: 0 1px 1px 0 rgba(0,0,0, 0.06), 0 2px 5px 0 rgba(0,0,0, 0.06);
 }
 
@@ -136,13 +136,18 @@
 .messages .recieved {
     text-align: left;
     background: rgb(204, 249, 204);
-    padding-left: 5px;
+    padding-left: 10px;
 }
 
 .messages .sent {
-    padding-right: 5px;
+    padding-right: 10px;
     text-align: right;
     background: rgb(249, 238, 228);
+}
+
+.mtime{
+    color: grey;
+    font-size: 10px;
 }
 
 .form-inner {
