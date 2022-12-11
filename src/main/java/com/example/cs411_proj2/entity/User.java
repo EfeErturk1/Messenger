@@ -25,6 +25,7 @@ public class User {
     @JsonIgnore
     private List<Message> received_messages;
     @ManyToMany(mappedBy = "participants")
+    @JsonIgnore
     private List<Groupchat> groupchats;
 
     public User(String phone_no, String name, String password) {

@@ -105,7 +105,7 @@ public class MessageController {
             Message msg = all_messages.get(i);
             if(msg.getSender().equals(user)){
                 // if it is not in the list, add it
-                if(!contacts.contains(msg.getReceiver())){
+                if(!contacts.contains(msg.getReceiver()) && msg.getReceiver() != null){
                     contacts.add(msg.getReceiver());
                 }
             }

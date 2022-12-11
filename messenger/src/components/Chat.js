@@ -12,19 +12,29 @@ import axios from 'axios'
 
 function Chat ({setUser,user}) {
 
-    const [reciever, setReciever] = useState({reciever_id: "", reciever_username: ""});
+    const [reciever, setReciever] = useState({reciever_id: "", reciever_username: "", reciever_type: "", group_id :"", group_name:""});
     const [message, setMessage] = useState({sender_id: "", reciever_id: "", content: "", time: ""});
     const [newReciever, setNewReciever] = useState({id: ""});
 
     const handleSend = async e => {
         e.preventDefault();
 
-        if( reciever.reciever_id !== ""){
+        if( reciever.reciever_type === "user" ){
             var now = new Date();
             const {data} = await axios.post("http://localhost:8081/messages", 
                 { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 
                 'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
                 { headers: {"Content-Type": "application/json"} });
+            
+            setMessage({...message, content:""});
+        }
+        else if( reciever.reciever_type === "group" ){
+            var now = new Date();
+            
+            const {data} = await axios.post("http://localhost:8081/groups/send-message", 
+                { 'sender': user.phone_no, 'content': message.content, 
+                'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
+                { headers: {"Content-Type": "application/json"}, params : {"id": reciever.group_id} });
             
             setMessage({...message, content:""});
         }
@@ -42,12 +52,13 @@ function Chat ({setUser,user}) {
         const {data} = await axios.get("http://localhost:8081/users/" + newReciever.id);
         
         if(data !== ""){
-            setReciever({reciever_id: data.phone_no, reciever_username: data.name});
+            setReciever({reciever_id: data.phone_no, reciever_username: data.name, reciever_type: "user"});
         }
     }
 
     const handleNewGroup = async () => {
-
+        //const {data} = await axios.post("http://localhost:8081/groups/delete", {},{params : {"id":"6"}})
+        
         const {data} = await axios.post("http://localhost:8081/groups/create", 
                 { 'name': "group1", 'participants': [
                     {'phone_no':'1'},
@@ -59,6 +70,7 @@ function Chat ({setUser,user}) {
 
     const query1 = useQuery('users', async()=>{
         const {data} = await axios.get("http://localhost:8081/messages/contacts/"+user.phone_no)
+        
         return data
       },{
         refetchInterval:1000
@@ -66,7 +78,7 @@ function Chat ({setUser,user}) {
 
       const query2 = useQuery('groups', async()=>{
         const {data} = await axios.get("http://localhost:8081/users/groupchats/"+user.phone_no)
-        console.log(data);
+        
         return data
       },{
         refetchInterval:1000
@@ -74,8 +86,13 @@ function Chat ({setUser,user}) {
 
       
       const query3 = useQuery('messages', async()=>{
-        if(reciever.reciever_id !== ""){
+        if(reciever.reciever_type === "user"){
             const {data} = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
+            
+            return data
+        }
+        else if(reciever.reciever_type === "group"){
+            const {data} = await axios.get("http://localhost:8081/groups/messages/" + reciever.group_id );
             
             return data
         }
@@ -104,16 +121,16 @@ function Chat ({setUser,user}) {
 
                             <div className="chat">
                                 <div className="chatName">
-                                    {query1.data && <div>
+                                {query1.data && <div>
                                         {query1.data.map((p,i)=>(<li key={p.phone_no}>
-                                            <button onClick={() => setReciever({reciever_id: p.phone_no, reciever_username: p.name})}>
+                                            <button onClick={() => setReciever({reciever_id: p.phone_no, reciever_username: p.name, reciever_type: "user"})}>
                                                 <span className="glyphicon glyphicon-user">&nbsp;</span>
                                                 {p.name}
                                             </button></li>))} </div>}
 
                                     {query2.data && <div>
                                         {query2.data.map((p,i)=>(<li key={p.groupId}>
-                                            <button>
+                                            <button onClick={() => setReciever({reciever_type: "group", group_id: p.groupId, group_name: p.name})}>
                                                 <span className="glyphicon glyphicon-user"></span>
                                                 <span className="glyphicon glyphicon-user">&nbsp;</span>
                                                 {p.name}
@@ -123,7 +140,7 @@ function Chat ({setUser,user}) {
                         </div>
                 </div>
                 <div className="rightDiv">
-                    <div className="header">{reciever.reciever_username}</div>
+                    <div className="header">{ reciever.reciever_type === "user" ? reciever.reciever_username : reciever.group_name }</div>
                     <div className="chatWindow">
                     {query3.data && <div className="messages">
                                     {query3.data.map((p,i)=>(p.sender.phone_no === user.phone_no ?
@@ -132,7 +149,11 @@ function Chat ({setUser,user}) {
                                             <div className="mtime">{p.time}</div>
                                             <button className="deleteBtn" onClick={() => handleDelete(p.message_id)}><span className="glyphicon glyphicon-trash"></span></button>
                                         </li> : 
-                                        <li className="recieved" key={p.message_id}>{p.content} <div className="mtime">{p.time}</div></li>
+                                        <li className="recieved" key={p.message_id}>
+                                            <div className="senderName">{p.sender.name}</div>
+                                            {p.content} 
+                                            <div className="mtime">{p.time}</div>
+                                        </li>
                                     ))} </div>}
                     </div>
                     <form className="form-properties" onSubmit={handleSend}>

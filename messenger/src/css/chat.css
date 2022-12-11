@@ -148,6 +148,10 @@
     background: rgb(249, 238, 228);
 }
 
+.senderName{
+    color: rgb(52, 52, 194);
+}
+
 .mtime{
     color: grey;
     font-size: 10px;

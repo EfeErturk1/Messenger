@@ -7,6 +7,7 @@ import com.example.cs411_proj2.entity.Groupchat;
 import com.example.cs411_proj2.entity.Message;
 import com.example.cs411_proj2.entity.User;
 import com.example.cs411_proj2.repository.GroupRepository;
+import com.example.cs411_proj2.repository.MessageRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 public class GroupService {
     private final GroupRepository groupRepository;
     private final UserService userService;
+
+    private final MessageRepo messageRepository;
 
     public void createGroup(GroupRequest groupRequest) {
         List<User> participants = new ArrayList<>();
@@ -73,13 +76,14 @@ public class GroupService {
         messages.add(message);
         groupchat.setMessages(messages);
 
+        messageRepository.save(message);
+
         log.info("Message {} is added to group {}", message.getMessage_id(), groupchat.getGroupId());
     }
 
     private Message mapRequestToMessage(MessageDTO messageRequest) {
         return Message.builder()
                 .sender(userService.getUser(messageRequest.getSender()))
-                .receiver(userService.getUser(messageRequest.getReceiver()))
                 .groupchat(messageRequest.getGroupchat())
                 .content(messageRequest.getContent())
                 .time(messageRequest.getTime())

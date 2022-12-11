@@ -24,7 +24,7 @@ public class Groupchat {
     private String name;
     @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name="participant_phone_numbers")
-    @JsonIgnoreProperties({"password", "name", "sent_messages", "received_messages"})
+    @JsonIgnoreProperties({"password", "sent_messages", "received_messages","groupchats"})
     @NonNull
     @ToString.Exclude
     private List<User> participants;
