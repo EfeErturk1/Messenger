@@ -30,8 +30,7 @@ function Chat ({setUser,user}) {
         }
     }
 
-    const handleDelete = async (e, id) => {
-        e.preventDefault();
+    const handleDelete = async id => {
 
         const {data} = await axios.delete("http://localhost:8081/messages/" + id);
         
@@ -47,6 +46,17 @@ function Chat ({setUser,user}) {
         }
     }
 
+    const handleNewGroup = async () => {
+
+        const {data} = await axios.post("http://localhost:8081/groups/create", 
+                { 'name': "group1", 'participants': [
+                    {'phone_no':'1'},
+                    {'phone_no':'2'}
+                ]},
+                { headers: {"Content-Type": "application/json"} });
+        
+    }
+
     const query1 = useQuery('users', async()=>{
         const {data} = await axios.get("http://localhost:8081/messages/contacts/"+user.phone_no)
         return data
@@ -54,8 +64,16 @@ function Chat ({setUser,user}) {
         refetchInterval:1000
       })
 
+      const query2 = useQuery('groups', async()=>{
+        const {data} = await axios.get("http://localhost:8081/users/groupchats/"+user.phone_no)
+        console.log(data);
+        return data
+      },{
+        refetchInterval:1000
+      })
+
       
-      const query2 = useQuery('messages', async()=>{
+      const query3 = useQuery('messages', async()=>{
         if(reciever.reciever_id !== ""){
             const {data} = await axios.get("http://localhost:8081/messages/from/" + user.phone_no + "/to/" + reciever.reciever_id);
             
@@ -81,10 +99,25 @@ function Chat ({setUser,user}) {
                                 <input type="text" placeholder="New chat" name="newChat" id="newChat" onChange={e => setNewReciever({id: e.target.value})}/>
                             </form>
 
+                            <button className="newGroupBtn" onClick={() => handleNewGroup()}>New group</button>
+
+
                             <div className="chat">
                                 <div className="chatName">
                                     {query1.data && <div>
-                                    {query1.data.map((p,i)=>(<li key={p.phone_no}><button key={p.phone_no} onClick={() => setReciever({reciever_id: p.phone_no, reciever_username: p.name})}>{p.name}</button></li>))} </div>}
+                                        {query1.data.map((p,i)=>(<li key={p.phone_no}>
+                                            <button onClick={() => setReciever({reciever_id: p.phone_no, reciever_username: p.name})}>
+                                                <span className="glyphicon glyphicon-user">&nbsp;</span>
+                                                {p.name}
+                                            </button></li>))} </div>}
+
+                                    {query2.data && <div>
+                                        {query2.data.map((p,i)=>(<li key={p.groupId}>
+                                            <button>
+                                                <span className="glyphicon glyphicon-user"></span>
+                                                <span className="glyphicon glyphicon-user">&nbsp;</span>
+                                                {p.name}
+                                            </button></li>))} </div>}
                                 </div>        
                             </div>
                         </div>
@@ -92,12 +125,12 @@ function Chat ({setUser,user}) {
                 <div className="rightDiv">
                     <div className="header">{reciever.reciever_username}</div>
                     <div className="chatWindow">
-                    {query2.data && <div className="messages">
-                                    {query2.data.map((p,i)=>(p.sender.phone_no === user.phone_no ?
+                    {query3.data && <div className="messages">
+                                    {query3.data.map((p,i)=>(p.sender.phone_no === user.phone_no ?
                                         <li className="sent" key={p.message_id}>
-                                            {p.content} 
+                                            {p.content}
                                             <div className="mtime">{p.time}</div>
-                                            <button className="deleteBtn" onClick={e => handleDelete(e,p.message_id)}><span className="glyphicon glyphicon-trash"></span></button>
+                                            <button className="deleteBtn" onClick={() => handleDelete(p.message_id)}><span className="glyphicon glyphicon-trash"></span></button>
                                         </li> : 
                                         <li className="recieved" key={p.message_id}>{p.content} <div className="mtime">{p.time}</div></li>
                                     ))} </div>}

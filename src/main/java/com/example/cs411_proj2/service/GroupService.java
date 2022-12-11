@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +23,15 @@ public class GroupService {
     private final UserService userService;
 
     public void createGroup(GroupRequest groupRequest) {
+        List<User> participants = new ArrayList<>();
+        List<User> p = groupRequest.getParticipants();
+        for (int i = 0; i < p.size(); i++) {
+            participants.add( userService.getUser(p.get(i).getPhone_no()));
+        }
+
         Groupchat groupchat = Groupchat.builder()
                 .name(groupRequest.getName())
-                .participants(groupRequest.getParticipants())
+                .participants(participants)
                 .messages(groupRequest.getMessages())
                 .build();
         groupRepository.save(groupchat);

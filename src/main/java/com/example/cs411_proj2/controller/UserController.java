@@ -1,5 +1,6 @@
 package com.example.cs411_proj2.controller;
 
+import com.example.cs411_proj2.entity.Groupchat;
 import com.example.cs411_proj2.entity.User;
 import com.example.cs411_proj2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> add(@RequestBody User user){
-        System.out.println("here");
         return ResponseEntity.ok(service.register(user.getPhone_no(), user.getName(), user.getPassword()));
     }
 
@@ -56,4 +56,10 @@ public class UserController {
         }
         return ResponseEntity.ok(user);
     }
+
+    @GetMapping(value = "/groupchats/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Groupchat>> getGroupsById(@PathVariable String id){
+        return ResponseEntity.ok(service.getUser(id).getGroupchats());
+    }
+
 }

@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/groups")
 @RequiredArgsConstructor
 public class GroupController {
     private final GroupService groupService;
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void createGroup(@RequestBody GroupRequest groupRequest) {
         groupService.createGroup(groupRequest);

@@ -78,7 +78,7 @@
     background: #c3b5c5;
 }
 
-.chatList .chat {
+.chat {
     position: relative;
     width: 100%;
     display: flex;
@@ -88,7 +88,8 @@
     cursor: pointer;
 }
 
-.chatList .chat .chatName {
+.chatName {
+    flex-direction: column;
     display: flex;
     justify-content: space-between;
     margin-bottom: 3px;
