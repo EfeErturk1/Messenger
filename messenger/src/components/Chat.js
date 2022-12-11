@@ -25,7 +25,7 @@ function Chat ({setUser,user}) {
             'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
             { headers: {"Content-Type": "application/json"} });
         
-        this.i.value = "";
+        setMessage({...message, content:""});
         
     }
 
