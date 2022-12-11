@@ -87,4 +87,32 @@ public class MessageController {
 
         return ResponseEntity.ok(common_messages);
     }
+
+    @GetMapping(value = "/contacts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getContactsOfUser(@PathVariable String id){
+        List<Message> messages = userservice.getSentMessages(id);
+        List<Message> messages2 = userservice.getRecievedMessages(id);
+
+        List<Message> all_messages = new ArrayList<>();
+        all_messages.addAll(messages);
+        all_messages.addAll(messages2);
+
+        all_messages.sort(Comparator.comparing(Message::getMessage_id));
+        List<User> contacts = new ArrayList<>();
+        User user = userservice.getUser(id);
+        for (Message msg : all_messages) {
+            if(msg.getSender().equals(user)){
+                // if it is not in the list, add it
+                if(!contacts.contains(msg.getReceiver())){
+                    contacts.add(msg.getReceiver());
+                }
+            }
+            else{
+                if(!contacts.contains(msg.getSender())){
+                    contacts.add(msg.getSender());
+                }
+            }
+        }
+        return ResponseEntity.ok(contacts);
+    }
 }
