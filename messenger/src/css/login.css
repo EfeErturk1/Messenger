@@ -12,6 +12,9 @@
     flex-direction: column;
 }
 
+.logo{
+  border-radius: 15px;
+}
 
 label {
     text-align: left;
