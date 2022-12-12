@@ -105,7 +105,7 @@ function Chat ({setUser,user}) {
             
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"></link>
             <div className="headerDiv">
-                <img className="logo" src={logo} alt="Chatr"/>
+                <img className="logo" id="chatLogo" src={logo} alt="Chatr"/>
             </div>
             <div className="chatContainer">
                 <div className="leftDiv">

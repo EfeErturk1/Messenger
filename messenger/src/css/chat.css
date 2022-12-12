@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(#c779d0 0%, #c779d0 100px, #c779d0 100px, #e6e6e6 100%);
+    background: linear-gradient(92.88deg, #A5AED1, #ABA4DA, #B2A2DF);
     
 }
 
@@ -13,6 +13,12 @@
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 15px;
+}
+
+#chatLogo {
+    height: 60px;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
@@ -75,7 +81,7 @@
     position: relative;
     height: calc(100% - 45px);
     overflow-y: auto;
-    background: #c3b5c5;
+    background: #c9c9c9;;
 }
 
 .chat {
@@ -119,7 +125,7 @@
 .chatWindow {
     position: relative;
     width: 100%;
-    height: calc(100% - 120px);
+    height: calc(100% - 105px);
     padding: 5px;
     overflow-y: auto;
 }
