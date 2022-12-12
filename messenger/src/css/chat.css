@@ -138,14 +138,14 @@
 
 .messages .recieved {
     text-align: left;
-    background: rgb(204, 249, 204);
+    background: rgb(249, 238, 228);
     padding-left: 10px;
 }
 
 .messages .sent {
     padding-right: 10px;
     text-align: right;
-    background: rgb(249, 238, 228);
+    background: rgb(204, 249, 204);
 }
 
 .senderName{
@@ -206,4 +206,13 @@
     padding: 5px;
     margin: 5px;
     padding-left: 15px;
+}
+
+.newGroupBtn{
+    border:none;
+    background-color: cornflowerblue;
+    border-radius: 30px;
+    width: 95%;
+    height: 30px;
+    margin-top: 5px;
 }
