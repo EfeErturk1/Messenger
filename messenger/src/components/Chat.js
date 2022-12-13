@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "../css/chat.css";
+import Group from './Group';
 import logo from '../logo/logo.png';
 import {
     useQuery,
@@ -15,6 +16,7 @@ function Chat ({setUser,user}) {
     const [reciever, setReciever] = useState({reciever_id: "", reciever_username: "", reciever_type: "", group_id :"", group_name:""});
     const [message, setMessage] = useState({sender_id: "", reciever_id: "", content: "", time: ""});
     const [newReciever, setNewReciever] = useState({id: ""});
+    const [chatPage, setChatPage] = useState({page: "chat"});
 
     const handleSend = async e => {
         e.preventDefault();
@@ -56,17 +58,6 @@ function Chat ({setUser,user}) {
         }
     }
 
-    const handleNewGroup = async () => {
-        //const {data} = await axios.post("http://localhost:8081/groups/delete", {},{params : {"id":"6"}})
-        
-        const {data} = await axios.post("http://localhost:8081/groups/create", 
-                { 'name': "group1", 'participants': [
-                    {'phone_no':'1'},
-                    {'phone_no':'2'}
-                ]},
-                { headers: {"Content-Type": "application/json"} });
-        
-    }
 
     const query1 = useQuery('users', async()=>{
         const {data} = await axios.get("http://localhost:8081/messages/contacts/"+user.phone_no)
@@ -107,16 +98,18 @@ function Chat ({setUser,user}) {
             <div className="headerDiv">
                 <img className="logo" id="chatLogo" src={logo} alt="Chatr"/>
             </div>
+            { chatPage.page === "group" ? 
+            <Group setChatPage={setChatPage} user={user}/> :
             <div className="chatContainer">
                 <div className="leftDiv">
                     <div className="header">Chats</div>
                         <div className="chatList">
 
-                            <form className="newChatForm" onSubmit={handleNewReciever}>
+                            <form className="newChatForm" onSubmit={(handleNewReciever)}>
                                 <input type="text" placeholder="New chat" name="newChat" id="newChat" onChange={e => setNewReciever({id: e.target.value})}/>
                             </form>
 
-                            <button className="newGroupBtn" onClick={() => handleNewGroup()}>New group</button>
+                            <button className="newGroupBtn" onClick={() => setChatPage({page:"group"})}>New group</button>
 
 
                             <div className="chat">
@@ -168,6 +161,7 @@ function Chat ({setUser,user}) {
                 </div>
 
             </div>
+            }
         </div>
     );
     
