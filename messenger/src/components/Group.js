@@ -27,18 +27,29 @@ function Group ({setChatPage,user}) {
         
     }
 
-    const handleNewparticipant = () => {
-        setNewGroup({...newGroup, participants: [...newGroup.participants, {'phone_no':newGroup.phone_no}]});
+    const handleNewParticipant = () => {
+        if(!newGroup.participants.some(p => p.phone_no === newGroup.phone_no))
+            setNewGroup({...newGroup, participants: [...newGroup.participants, {'phone_no':newGroup.phone_no}]});
     }
+
+    const handleRemoveParticipant = ( id ) => {
+        setNewGroup({...newGroup, participants: newGroup.participants.filter(function(p) { 
+            return p.phone_no !== id
+        })});
+    }
+
+    console.log(newGroup);
 
     return (
         <div className="chatContainer" style={{backgroundColor: "violet"}}>
             <h1>Create Group</h1>
             <input type="text" placeholder="Group Name" name="groupName" id="groupName" onChange={e => setNewGroup({...newGroup, name: e.target.value})}/>
             <input type="text" placeholder="New Participant" name="participantPhone" id="participantPhone" onChange={e => setNewGroup({...newGroup, phone_no: e.target.value})}/>
-            <button className="addParticipantBtn" onClick={handleNewparticipant}>Add Participant</button>
+            <button className="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
             <div className="addedParticipants">
-            { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}</li> ))}
+            { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}
+                    <button onClick={() => handleRemoveParticipant(p.phone_no)}>X</button>
+                </li> ))}
             </div>
             <button className="cancelGroupBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
             <button className="createGroupBtn" onClick={handleNewGroup}>Create group</button>
