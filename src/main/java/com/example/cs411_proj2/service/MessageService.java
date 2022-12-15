@@ -36,6 +36,7 @@ public class MessageService {
         Message message = repo.findById(message_id).orElse(null);
         if (message != null) {
             message.setContent(content);
+            message.setEdited(Boolean.TRUE);
             return repo.save(message);
         }
         return null;
