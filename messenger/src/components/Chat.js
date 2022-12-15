@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "../css/chat.css";
 import Group from './Group';
+import EditMessage from './EditMessage';
 import logo from '../logo/logo.png';
 import {
     useQuery,
@@ -17,6 +18,7 @@ function Chat ({setUser,user}) {
     const [message, setMessage] = useState({sender_id: "", reciever_id: "", content: "", time: ""});
     const [newReciever, setNewReciever] = useState({id: ""});
     const [chatPage, setChatPage] = useState({page: "chat"});
+    const [edited, setEdited] = useState({id: "", content: ""});
 
     const handleSend = async e => {
         e.preventDefault();
@@ -43,9 +45,12 @@ function Chat ({setUser,user}) {
     }
 
     const handleDelete = async id => {
-
         const {data} = await axios.delete("http://localhost:8081/messages/" + id);
-        
+    }
+
+    const handleEdit = async (e_id, e_content) => {
+        setEdited({id: e_id, content: e_content});
+        setChatPage({page:"editMessage"});
     }
 
     const handleNewReciever = async e => {
@@ -98,8 +103,9 @@ function Chat ({setUser,user}) {
             <div className="headerDiv">
                 <img className="logo" id="chatLogo" src={logo} alt="Chatr"/>
             </div>
-            { chatPage.page === "group" ? 
-            <Group setChatPage={setChatPage} user={user}/> :
+            { chatPage.page === "group" && <Group setChatPage={setChatPage} user={user}/> }
+            { chatPage.page === "editMessage" && <EditMessage setChatPage={setChatPage} user={user} edited={edited} setEdited={setEdited}/> }
+            { chatPage.page === "chat" && 
             <div className="chatContainer">
                 <div className="leftDiv">
                     <div className="header">Chats</div>
@@ -141,6 +147,7 @@ function Chat ({setUser,user}) {
                                             {p.content}
                                             <div className="mtime">{p.time}</div>
                                             <button className="deleteBtn" onClick={() => handleDelete(p.message_id)}><span className="glyphicon glyphicon-trash"></span></button>
+                                            <button className="editBtn" onClick={() => handleEdit(p.message_id, p.content)}><span className="glyphicon glyphicon-pencil"></span></button>
                                         </li> : 
                                         <li className="recieved" key={p.message_id}>
                                             <div className="senderName">{p.sender.name}</div>

@@ -38,8 +38,6 @@ function Group ({setChatPage,user}) {
         })});
     }
 
-    console.log(newGroup);
-
     return (
         <div className="chatContainer" style={{backgroundColor: "violet"}}>
             <h1>Create Group</h1>
