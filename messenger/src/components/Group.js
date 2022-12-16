@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../css/chat.css";
+import "../css/group.css";
 import {
     useQuery,
     useMutation,
@@ -39,18 +39,20 @@ function Group ({setChatPage,user}) {
     }
 
     return (
-        <div className="chatContainer" style={{backgroundColor: "violet"}}>
-            <h1>Create Group</h1>
+        <div className="groupBody">
+            <h3 id="groupHeader">New Group</h3>
             <input type="text" placeholder="Group Name" name="groupName" id="groupName" onChange={e => setNewGroup({...newGroup, name: e.target.value})}/>
-            <input type="text" placeholder="New Participant" name="participantPhone" id="participantPhone" onChange={e => setNewGroup({...newGroup, phone_no: e.target.value})}/>
-            <button className="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
-            <div className="addedParticipants">
-            { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}
-                    <button onClick={() => handleRemoveParticipant(p.phone_no)}>X</button>
-                </li> ))}
+            <div id="participants">
+                <input type="text" placeholder="Phone Number" name="participantPhone" id="participantPhone" onChange={e => setNewGroup({...newGroup, phone_no: e.target.value})}/>
+                <button className="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
+                <div className="addedParticipants">
+                { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}
+                        <button onClick={() => handleRemoveParticipant(p.phone_no)}>X</button>
+                    </li> ))}
+                </div>
+                <button className="cancelGroupBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
+                <button className="createGroupBtn" onClick={handleNewGroup}>Create group</button>
             </div>
-            <button className="cancelGroupBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
-            <button className="createGroupBtn" onClick={handleNewGroup}>Create group</button>
         </div>
     );
     
