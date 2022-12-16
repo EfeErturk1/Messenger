@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../css/chat.css";
+import "../css/edit.css";
 import {
     useQuery,
     useMutation,
@@ -25,11 +25,13 @@ function EditMessage ({setChatPage,edited,setEdited}) {
     }
 
     return (
-        <div className="chatContainer" style={{backgroundColor: "lightgreen"}}>
-            <h1>Edit Message</h1>
+        <div className="editBody">
+            <h3 id="editHeader">Edit Message</h3>
             <input type="text" name="edited" id="edited" onChange={e => setEdited({...edited, content: e.target.value})} value={edited.content}/>
-            <button className="cancelEditBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
-            <button className="saveEditBtn" onClick={handleSave}>Save</button>
+            <div id="editButtonsDiv">
+                <button className="editButtons" id="cancelEditBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
+                <button className="editButtons" id="saveEditBtn" onClick={handleSave}>Save</button>
+            </div>
         </div>
     );
     

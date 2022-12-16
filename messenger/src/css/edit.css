@@ -1,0 +1,59 @@
+.editBody {
+    background-color: rgba(238, 238, 238, 0.3);
+    width: 500px;
+    max-width: 100%;
+    height: 300px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0, 0.06), 0 2px 5px 0 rgba(0,0,0, 0.06);
+    border-radius: 30px;
+}
+
+#editHeader {
+    color: white;
+    padding-bottom: 5px;
+    font-size: 126%;
+}
+
+.editButtonsDiv {
+    margin-top: 15px;
+}
+
+#cancelEditBtn {
+    margin-right: 20px;
+    background-color:rgba(254, 188, 188, 0.95);
+    color: rgb(53, 0, 0);
+}
+
+#saveEditBtn {
+    background-color: rgb(200, 255, 233, 1);
+    color: rgb(0, 44, 26);
+}
+
+#saveEditBtn:hover {
+    box-shadow: rgba(63, 205, 184, 0.5) 0 1px 4px;
+    transition-duration: .1s;
+  }
+  
+  #cancelEditBtn:hover {
+    box-shadow: rgba(205, 63, 63, 0.5) 0 1px 4px;
+    transition-duration: .1s;
+  }
+
+.editButtons {
+    margin-top: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    height: 3rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+

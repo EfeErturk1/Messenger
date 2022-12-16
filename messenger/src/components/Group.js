@@ -44,14 +44,14 @@ function Group ({setChatPage,user}) {
             <input type="text" placeholder="Group Name" name="groupName" id="groupName" onChange={e => setNewGroup({...newGroup, name: e.target.value})}/>
             <div id="participants">
                 <input type="text" placeholder="Phone Number" name="participantPhone" id="participantPhone" onChange={e => setNewGroup({...newGroup, phone_no: e.target.value})}/>
-                <button className="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
+                <button className="groupButtons" id="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
                 <div className="addedParticipants">
                 { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}
                         <button onClick={() => handleRemoveParticipant(p.phone_no)}>X</button>
                     </li> ))}
                 </div>
-                <button className="cancelGroupBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
-                <button className="createGroupBtn" onClick={handleNewGroup}>Create group</button>
+                <button className="groupButtons" id="cancelGroupBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>
+                <button className="groupButtons" id="createGroupBtn" onClick={handleNewGroup}>Create group</button>
             </div>
         </div>
     );
