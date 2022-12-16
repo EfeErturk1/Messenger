@@ -24,6 +24,7 @@ public class Message {
     private User receiver;
     private String content;
     private String time;
+    private Boolean edited;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "groups_id")
     @JsonIgnoreProperties({"participants", "messages"})
@@ -34,6 +35,7 @@ public class Message {
         this.receiver = receiver;
         this.content = content;
         this.time = time;
+        this.edited = false;
     }
 
     public Message(User sender, User receiver, String content, Groupchat groupchat, String time) {
@@ -42,6 +44,7 @@ public class Message {
         this.content = content;
         this.groupchat = groupchat;
         this.time = time;
+        this.edited = false;
     }
 
 }

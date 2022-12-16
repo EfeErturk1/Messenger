@@ -9,19 +9,17 @@ import {
   } from 'react-query'
 import axios from 'axios'
 
-function EditMessage ({setChatPage,user,edited,setEdited}) {
+function EditMessage ({setChatPage,edited,setEdited}) {
 
     const handleSave = async () => {
-        /*
-        if(newGroup.name === ""){
-            alert("Please enter a group name");
+        if(edited.content === ""){
+            alert("Please enter a message");
             return false;
         }
-        const {data} = await axios.post("http://localhost:8081/groups/create", 
-                { 'name': newGroup.name, 'participants': newGroup.participants },
+        const {data} = await axios.put("http://localhost:8081/messages/" + edited.id, 
+                edited.content ,
                 { headers: {"Content-Type": "application/json"} });
-        */
-       
+        
         setChatPage({page:"chat"});
         
     }

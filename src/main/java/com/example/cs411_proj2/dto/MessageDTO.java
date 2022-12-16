@@ -1,7 +1,6 @@
 package com.example.cs411_proj2.dto;
 
 import com.example.cs411_proj2.entity.Groupchat;
-import com.example.cs411_proj2.entity.User;
 import lombok.*;
 
 @AllArgsConstructor
@@ -15,4 +14,5 @@ public class MessageDTO {
     private Groupchat groupchat;
     private String content;
     private String time;
+    private Boolean edited;
 }
