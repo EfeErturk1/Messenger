@@ -56,6 +56,11 @@ function Chat ({setUser,user}) {
     const handleNewReciever = async e => {
         e.preventDefault();
 
+        if(newReciever.id === ""){
+            alert("Please enter a valid phone number");
+            return false;
+        }
+
         const {data} = await axios.get("http://localhost:8081/users/" + newReciever.id);
         
         if(data !== ""){
