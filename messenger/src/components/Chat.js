@@ -104,7 +104,7 @@ function Chat ({setUser,user}) {
                 <img className="logo" id="chatLogo" src={logo} alt="Chatr"/>
             </div>
             { chatPage.page === "group" && <Group setChatPage={setChatPage} user={user}/> }
-            { chatPage.page === "editMessage" && <EditMessage setChatPage={setChatPage} user={user} edited={edited} setEdited={setEdited}/> }
+            { chatPage.page === "editMessage" && <EditMessage setChatPage={setChatPage} edited={edited} setEdited={setEdited}/> }
             { chatPage.page === "chat" && 
             <div className="chatContainer">
                 <div className="leftDiv">
@@ -146,6 +146,7 @@ function Chat ({setUser,user}) {
                                         <li className="sent" key={p.message_id}>
                                             {p.content}
                                             <div className="mtime">{p.time}</div>
+                                            <div className="isEdited">{p.edited && <span>edited</span>}</div>
                                             <button className="deleteBtn" onClick={() => handleDelete(p.message_id)}><span className="glyphicon glyphicon-trash"></span></button>
                                             <button className="editBtn" onClick={() => handleEdit(p.message_id, p.content)}><span className="glyphicon glyphicon-pencil"></span></button>
                                         </li> : 
@@ -153,6 +154,7 @@ function Chat ({setUser,user}) {
                                             <div className="senderName">{p.sender.name}</div>
                                             {p.content} 
                                             <div className="mtime">{p.time}</div>
+                                            <div className="isEdited">{p.edited && <span>edited</span>}</div>
                                         </li>
                                     ))} </div>}
                     </div>

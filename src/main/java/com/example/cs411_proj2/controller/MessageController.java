@@ -54,6 +54,8 @@ public class MessageController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody String content){
+        System.out.println(content);
+        content = content.substring(1, content.length() - 1);
         return ResponseEntity.ok(msgservice.updateMessage(id, content));
     }
 
