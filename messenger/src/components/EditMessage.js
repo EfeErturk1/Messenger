@@ -1,12 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import "../css/edit.css";
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
-  } from 'react-query'
 import axios from 'axios'
 
 function EditMessage ({setChatPage,edited,setEdited}) {

@@ -4,11 +4,7 @@ import Group from './Group';
 import EditMessage from './EditMessage';
 import logo from '../logo/logo.png';
 import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
+    useQuery
   } from 'react-query'
 import axios from 'axios'
 
@@ -23,8 +19,9 @@ function Chat ({setUser,user}) {
     const handleSend = async e => {
         e.preventDefault();
 
+        var now = new Date();
         if( reciever.reciever_type === "user" ){
-            var now = new Date();
+            
             const {data} = await axios.post("http://localhost:8081/messages", 
                 { 'sender': user.phone_no, 'receiver': reciever.reciever_id, 'content': message.content, 
                 'time': now.getHours().toLocaleString() + ":" + now.getMinutes().toLocaleString().padStart(2, '0')},
@@ -33,7 +30,6 @@ function Chat ({setUser,user}) {
             setMessage({...message, content:""});
         }
         else if( reciever.reciever_type === "group" ){
-            var now = new Date();
             
             const {data} = await axios.post("http://localhost:8081/groups/send-message", 
                 { 'sender': user.phone_no, 'content': message.content, 

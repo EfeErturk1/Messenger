@@ -1,12 +1,5 @@
 import React, {useState} from "react";
 import "../css/group.css";
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
-  } from 'react-query'
 import axios from 'axios'
 
 function Group ({setChatPage,user}) {
