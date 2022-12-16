@@ -151,7 +151,7 @@ function Chat ({setUser,user}) {
                                             <button className="editBtn" onClick={() => handleEdit(p.message_id, p.content)}><span className="glyphicon glyphicon-pencil"></span></button>
                                         </li> : 
                                         <li className="recieved" key={p.message_id}>
-                                            <div className="senderName">{p.sender.name}</div>
+                                            {reciever.reciever_type === "group" && <div className="senderName">{p.sender.name}</div>}
                                             {p.content} 
                                             <div className="mtime">{p.time}</div>
                                             <div className="isEdited">{p.edited && <span>edited</span>}</div>

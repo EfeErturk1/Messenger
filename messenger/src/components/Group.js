@@ -28,7 +28,7 @@ function Group ({setChatPage,user}) {
     }
 
     const handleNewParticipant = () => {
-        if(!newGroup.participants.some(p => p.phone_no === newGroup.phone_no))
+        if(!newGroup.participants.some(p => p.phone_no === newGroup.phone_no) && newGroup.phone_no !== "")
             setNewGroup({...newGroup, participants: [...newGroup.participants, {'phone_no':newGroup.phone_no}]});
     }
 
