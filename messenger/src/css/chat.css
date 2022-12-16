@@ -171,6 +171,12 @@
     font-size: 10px;
 }
 
+.isEdited{
+    color: grey;
+    font-size: 12px;
+    font-style: italic;
+}
+
 .deleteBtn, .editBtn{
     background-color: transparent;
     border: none;
@@ -190,7 +196,7 @@
 .form-inner input {
     position: relative;
     float: left;
-    width: calc(90% - 110px);
+    width: calc(100% - 150px);
     margin: 0 20px;
     padding: 10px 20px;
     border: none;
@@ -207,6 +213,11 @@
     height: 30px;
     margin-top: 5px;
     border-radius: 25px;
+}
+
+.sendBtn:hover {
+    box-shadow: cornflowerblue 0 1px 4px;
+    transition-duration: .1s;
 }
 
 .newChatForm{
@@ -232,4 +243,9 @@
     margin-top: 5px;
     color: #094d5e;
     font-size: 13.9px;
+}
+
+.newGroupBtn:hover {
+    box-shadow: rgba(194, 252, 255) 0 1px 4px;
+    transition-duration: .1s;
 }

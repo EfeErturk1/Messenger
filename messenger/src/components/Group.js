@@ -29,7 +29,7 @@ function Group ({setChatPage,user}) {
 
     const handleNewParticipant = () => {
         if(!newGroup.participants.some(p => p.phone_no === newGroup.phone_no) && newGroup.phone_no !== "")
-            setNewGroup({...newGroup, participants: [...newGroup.participants, {'phone_no':newGroup.phone_no}]});
+            setNewGroup({...newGroup, phone_no:"", participants: [...newGroup.participants, {'phone_no':newGroup.phone_no}]});
     }
 
     const handleRemoveParticipant = ( id ) => {
@@ -43,7 +43,7 @@ function Group ({setChatPage,user}) {
             <h3 id="groupHeader">New Group</h3>
             <input type="text" placeholder="Group Name" name="groupName" id="groupName" onChange={e => setNewGroup({...newGroup, name: e.target.value})}/>
             <div id="participants">
-                <input type="text" placeholder="Phone Number" name="participantPhone" id="participantPhone" onChange={e => setNewGroup({...newGroup, phone_no: e.target.value})}/>
+                <input type="text" placeholder="Phone Number" name="participantPhone" id="participantPhone" onChange={e => setNewGroup({...newGroup, phone_no: e.target.value})} value={newGroup.phone_no}/>
                 <button className="groupButtons" id="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
                 <div className="addedParticipants">
                 { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}
