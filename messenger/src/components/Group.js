@@ -47,7 +47,7 @@ function Group ({setChatPage,user}) {
                 <button className="groupButtons" id="addParticipantBtn" onClick={handleNewParticipant}>Add Participant</button>
                 <div className="addedParticipants">
                 { newGroup.participants.map((p,i) => ( i > 0 && <li>{p.phone_no}
-                        <button onClick={() => handleRemoveParticipant(p.phone_no)}>X</button>
+                        <button class="cancelParticipantBtn" onClick={() => handleRemoveParticipant(p.phone_no)}>X</button>
                     </li> ))}
                 </div>
                 <button className="groupButtons" id="cancelGroupBtn" onClick={() => setChatPage({page:"chat"})}>Cancel</button>

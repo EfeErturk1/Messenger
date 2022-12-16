@@ -37,7 +37,6 @@
 #cancelGroupBtn{
     background-image: linear-gradient(to right, rgba(255, 194, 218, 0.9), rgba(255, 184, 184, 0.95));
     color: white;
-    margin-top: 20px;
     margin-right: 30px;
 }
 
@@ -47,7 +46,7 @@
 }
 
 .groupButtons {
-    margin-top: 16px;
+    margin-top: 1px;
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 10px;
@@ -84,4 +83,39 @@
     .groupButtons {
       padding: 0 2.8rem;
     }
+  }
+
+  .addedParticipants {
+    margin: 20px auto;
+    width: 280px;
+    background: rgb(255, 255, 255, 0.3);
+  }
+
+  .addedParticipants li {
+    font: 200 16px/1.5 Helvetica, Verdana, sans-serif;
+    color: #1e3177;
+    border-bottom: 1px solid rgb(255, 255, 255, 0.3);
+    padding-top: 4px;
+    padding-right: 4px;
+    list-style-type: none;
+  }
+
+  li:last-child {
+    border: none;
+  }
+
+  .cancelParticipantBtn {
+    float: right;
+    font-size: 14px;
+    width: 30px;
+    margin: auto 0;
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(238, 238, 238, 0.9);
+    color: rgb(74, 0, 0);
+  }
+
+  .cancelParticipantBtn:hover {
+    box-shadow: rgba(73, 46, 46, 0.4) 0 1px 4px;
+    transition-duration: .1s;
   }
