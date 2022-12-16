@@ -122,14 +122,14 @@ function Chat ({setUser,user}) {
                                 <div className="chatName">
                                 {query1.data && <div>
                                         {query1.data.map((p,i)=>(<li key={p.phone_no}>
-                                            <button onClick={() => setReciever({reciever_id: p.phone_no, reciever_username: p.name, reciever_type: "user"})}>
+                                            <button class ="chatOption" onClick={() => setReciever({reciever_id: p.phone_no, reciever_username: p.name, reciever_type: "user"})}>
                                                 <span className="glyphicon glyphicon-user">&nbsp;</span>
                                                 {p.name}
                                             </button></li>))} </div>}
 
                                     {query2.data && <div>
                                         {query2.data.map((p,i)=>(<li key={p.groupId}>
-                                            <button onClick={() => setReciever({reciever_type: "group", group_id: p.groupId, group_name: p.name})}>
+                                            <button class ="chatOption" onClick={() => setReciever({reciever_type: "group", group_id: p.groupId, group_name: p.name})}>
                                                 <span className="glyphicon glyphicon-user"></span>
                                                 <span className="glyphicon glyphicon-user">&nbsp;</span>
                                                 {p.name}

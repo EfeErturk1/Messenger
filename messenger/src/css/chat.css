@@ -151,11 +151,14 @@
 .messages .sent {
     padding-right: 10px;
     text-align: right;
-    background: rgb(204, 249, 204);
+    background: #EDE4FF;
 }
 
 .senderName{
-    color: rgb(52, 52, 194);
+    padding-top: 2px;
+    color: rgb(35, 35, 177);
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .mtime{
