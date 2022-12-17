@@ -163,7 +163,8 @@ function Chat ({setUser,user}) {
                     
                         <div className="form-inner">
                             <div className="form-group">
-                                <input type="text" placeholder="Type your message..." name="mcontent" id="mcontent" onChange={e => setMessage({...message, content: e.target.value})} value={message.content}/>
+                                <input type="text" placeholder="Type your message..." name="mcontent" id="mcontent" 
+                                    onChange={e => setMessage({...message, content: e.target.value})} value={message.content} autoComplete="off"/>
                                 <button className="sendBtn">Send</button>
                             </div>
                         </div>
