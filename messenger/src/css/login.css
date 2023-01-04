@@ -1,5 +1,5 @@
 .Login {
-    background-image: linear-gradient(92.88deg, #feac5e, #c779d0, #4bc0c8);
+    background-image: linear-gradient(92.88deg, #A31CF0, #D500CC);
     text-align: center;
     display: flex;
     align-items: center;
@@ -12,6 +12,9 @@
     flex-direction: column;
 }
 
+.logo{
+  border-radius: 15px;
+}
 
 label {
     text-align: left;

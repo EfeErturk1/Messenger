@@ -3,20 +3,25 @@ package com.example.cs411_proj2.controller;
 import com.example.cs411_proj2.dto.GroupRequest;
 import com.example.cs411_proj2.dto.GroupResponse;
 import com.example.cs411_proj2.dto.MessageDTO;
+import com.example.cs411_proj2.entity.Groupchat;
+import com.example.cs411_proj2.entity.Message;
 import com.example.cs411_proj2.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/groups")
 @RequiredArgsConstructor
 public class GroupController {
     private final GroupService groupService;
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void createGroup(@RequestBody GroupRequest groupRequest) {
         groupService.createGroup(groupRequest);
@@ -44,6 +49,7 @@ public class GroupController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void sendMessage(@RequestParam("id") Integer id,
                             @RequestBody MessageDTO messageRequest) {
+
         groupService.sendMessage(id, messageRequest);
     }
 
@@ -58,6 +64,11 @@ public class GroupController {
     public void removeParticipant(@RequestParam("group-id") Integer groupId,
                                   @RequestParam("phone-number") String phoneNumber) {
         groupService.removeParticipant(groupId, phoneNumber);
+    }
+
+    @GetMapping(value = "/messages/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Message>> getGroupMessagesById(@PathVariable Integer id){
+        return ResponseEntity.ok(groupService.getGroupById(id).getMessages());
     }
 
 }

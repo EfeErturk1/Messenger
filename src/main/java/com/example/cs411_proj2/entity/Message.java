@@ -16,7 +16,7 @@ public class Message {
     private int message_id;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "sender_phone_no")
-    @JsonIgnoreProperties({"password", "sent_messages", "received_messages", "name"})
+    @JsonIgnoreProperties({"password", "sent_messages", "received_messages"})
     private User sender;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "receiver_phone_no")
@@ -27,12 +27,22 @@ public class Message {
     private Boolean edited;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "groups_id")
+    @JsonIgnoreProperties({"participants", "messages"})
     private Groupchat groupchat;
 
     public Message(User sender, User receiver, String content, String time) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
+        this.time = time;
+        this.edited = false;
+    }
+
+    public Message(User sender, User receiver, String content, Groupchat groupchat, String time) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.content = content;
+        this.groupchat = groupchat;
         this.time = time;
         this.edited = false;
     }

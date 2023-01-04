@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,8 @@ public class MessageController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody String content){
+        System.out.println(content);
+        content = content.substring(1, content.length() - 1);
         return ResponseEntity.ok(msgservice.updateMessage(id, content));
     }
 
@@ -81,6 +84,39 @@ public class MessageController {
         List<Message> messages4 = userservice.getRecievedMessages(sender_id);
         List<Message> common_messages2 = messages3.stream().filter(messages4::contains).collect(Collectors.toList());
         common_messages.addAll(common_messages2);
+
+        common_messages.sort(Comparator.comparing(Message::getMessage_id));
+
         return ResponseEntity.ok(common_messages);
+    }
+
+    @GetMapping(value = "/contacts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getContactsOfUser(@PathVariable String id){
+        List<Message> messages = userservice.getSentMessages(id);
+        List<Message> messages2 = userservice.getRecievedMessages(id);
+
+        List<Message> all_messages = new ArrayList<>();
+        all_messages.addAll(messages);
+        all_messages.addAll(messages2);
+
+        all_messages.sort(Comparator.comparing(Message::getMessage_id));
+        List<User> contacts = new ArrayList<>();
+        User user = userservice.getUser(id);
+
+        for (int i = all_messages.size() - 1; i >= 0; i--) {
+            Message msg = all_messages.get(i);
+            if(msg.getSender().equals(user)){
+                // if it is not in the list, add it
+                if(!contacts.contains(msg.getReceiver()) && msg.getReceiver() != null){
+                    contacts.add(msg.getReceiver());
+                }
+            }
+            else{
+                if(!contacts.contains(msg.getSender())){
+                    contacts.add(msg.getSender());
+                }
+            }
+        }
+        return ResponseEntity.ok(contacts);
     }
 }

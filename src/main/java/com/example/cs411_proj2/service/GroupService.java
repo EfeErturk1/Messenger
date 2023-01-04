@@ -7,10 +7,12 @@ import com.example.cs411_proj2.entity.Groupchat;
 import com.example.cs411_proj2.entity.Message;
 import com.example.cs411_proj2.entity.User;
 import com.example.cs411_proj2.repository.GroupRepository;
+import com.example.cs411_proj2.repository.MessageRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +23,18 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final UserService userService;
 
+    private final MessageRepo messageRepository;
+
     public void createGroup(GroupRequest groupRequest) {
+        List<User> participants = new ArrayList<>();
+        List<User> p = groupRequest.getParticipants();
+        for (int i = 0; i < p.size(); i++) {
+            participants.add( userService.getUser(p.get(i).getPhone_no()));
+        }
+
         Groupchat groupchat = Groupchat.builder()
                 .name(groupRequest.getName())
-                .participants(groupRequest.getParticipants())
+                .participants(participants)
                 .messages(groupRequest.getMessages())
                 .build();
         groupRepository.save(groupchat);
@@ -66,13 +76,14 @@ public class GroupService {
         messages.add(message);
         groupchat.setMessages(messages);
 
+        messageRepository.save(message);
+
         log.info("Message {} is added to group {}", message.getMessage_id(), groupchat.getGroupId());
     }
 
     private Message mapRequestToMessage(MessageDTO messageRequest) {
         return Message.builder()
                 .sender(userService.getUser(messageRequest.getSender()))
-                .receiver(userService.getUser(messageRequest.getReceiver()))
                 .groupchat(messageRequest.getGroupchat())
                 .content(messageRequest.getContent())
                 .time(messageRequest.getTime())

@@ -3,14 +3,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Chat from './components/Chat';
 import './App.css';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
-import axios from 'axios'
 
 function App() { 
   const [user, setUser] = useState({username: "", phone_no: ""});
@@ -18,13 +10,13 @@ function App() {
 
   return (
     <div className="App">
-      {user.phone_no == "" && <div className="Login">
+      {user.phone_no === "" && <div className="Login">
         {page.type === "login" ?
           <Login setUser={setUser} setPage={setPage}/> :
           <Register setPage={setPage}/>
         }
         </div>}
-      {user.phone_no != "" && <div>
+      {user.phone_no !== "" && <div>
         <Chat setUser={setUser} user={user}/>
       </div>}
     </div>
